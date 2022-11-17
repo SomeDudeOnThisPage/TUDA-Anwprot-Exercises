@@ -1,4 +1,3 @@
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -15,7 +14,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
+public class Ex2 {
     private record GraphData(float degrees, float path) {}
 
     private static void make(int n, float p, XYSeries series) {
@@ -34,8 +33,8 @@ public class Main {
 
     public static void main(String[] args) {
         XYSeries series = new XYSeries("Mean path length by constant average node degrees.");
-        LogAxis xAxis = new LogAxis("Avg. Path Length");
-        xAxis.setBase(2);
+        NumberAxis xAxis = new NumberAxis("Avg. Path Length");
+        // xAxis.setBase(2);
         xAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         LogAxis yAxis = new LogAxis("Number of Nodes");
         yAxis.setBase(2);
@@ -56,7 +55,7 @@ public class Main {
                 xAxis, yAxis, new XYLineAndShapeRenderer(true, false));
         JFreeChart chart = new JFreeChart(
                 "Mean path length by constant average node degrees.", JFreeChart.DEFAULT_TITLE_FONT, plot, false);
-        File file = new File("./log_log.png");
+        File file = new File("./const_log.png");
         try {
             ChartUtils.saveChartAsPNG(file, chart, 800, 600);
         } catch (IOException e) {
