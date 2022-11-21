@@ -1,3 +1,4 @@
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -18,16 +19,19 @@ public final class Base64Decoder {
     }};
 
     public static void main(String[] args) {
-        System.out.println(decode("SGVsbG8="));
+        // "Hello"
+        if (args.length == 0 || args[0] == null) {
+            throw new InvalidParameterException("You need to pass a (valid) base64 encoded string or path.");
+        }
+        System.out.println(decode(args[0]));
     }
 
     public static String decode(final String base64) {
         char[] data = base64.toCharArray();
         if (data.length % 4 != 0) {
-            throw new RuntimeException("You absolute donkey!");
+            throw new RuntimeException("You absolute donkey! Pass a valid, padded base64-string next time.");
         }
         char[] output = new char[data.length * 3 / 4];
-        System.out.println(Arrays.toString(data) + " " + data.length);
 
         // four chars = three bytes
         // we assume the base64 is correctly padded
